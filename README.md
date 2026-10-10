@@ -1,56 +1,87 @@
-# Welcome to your Expo app 👋
+🥗 MacroManiacs
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo móvel para acompanhamento de metas nutricionais (macronutrientes), hidratação e engajamento coletivo através de chats em grupo gamificados.
 
-## Get started
+📱 Visão Geral
 
-1. Install dependencies
+O MacroManiacs combina o monitoramento diário de dieta (proteínas, carboidratos, gorduras e água) com uma comunidade ativa. Em vez de registrar refeições sozinho, os usuários participam de grupos temáticos com metas semanais colaborativas, rankings e troca de dicas de alimentação saudável.
 
-   ```bash
-   npm install
-   ```
+✨ Funcionalidades Principais
 
-2. Start the app
+💬 Chat em Grupo em Tempo Real: Conversas dinâmicas com outros membros do grupo para incentivo e compartilhamento de refeições pós-treino.
 
-   ```bash
-   npx expo start
-   ```
+🏆 Gamificação e Conquistas: Notificações de conquistas coletivas (ex: bater meta semanal de água) que geram pontos para todo o grupo.
 
-In the output, you'll find options to open the app in a
+🖼️ Personalização Visual:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Alteração dinâmica da imagem do grupo diretamente da galeria.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Troca da foto de perfil do usuário.
 
-## Get a fresh project
+📊 Navegação Integrada:
 
-When you're ready, run:
+Início: Visão geral do dia e calorias restantes.
 
-```bash
-npm run reset-project
-```
+Refeições: Registro diário de macronutrientes e água.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Grupo: Interações, chat, metas e rankings da equipe.
 
-### Other setup steps
+Perfil: Ajuste de metas individuais e dados antropométricos.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+🛠️ Tecnologias Utilizadas
 
-## Learn more
+Framework: React Native com Expo (Expo Router)
 
-To learn more about developing your project with Expo, look at the following resources:
+Linguagem: TypeScript
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Ícones: @expo/vector-icons (Ionicons, Feather, MaterialCommunityIcons)
 
-## Join the community
+Manipulação de Imagens: expo-image-picker
 
-Join our community of developers creating universal apps.
+Áreas Seguras: react-native-safe-area-context
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+🚀 Como Executar o Projeto Localmente
+
+Pré-requisitos
+
+Node.js (versão LTS recomendada)
+
+Aplicativo Expo Go instalado no celular (Android ou iOS)
+
+Passo a Passo
+
+Clone o repositório:
+
+git clone https://github.com/seu-usuario/macromaniacs.git
+cd macromaniacs
+
+
+Instale as dependências:
+
+npm install
+
+
+Instale os módulos nativos do Expo:
+
+npx expo install @expo/vector-icons react-native-safe-area-context expo-image-picker
+
+
+Inicie o servidor de desenvolvimento:
+
+npx expo start
+
+
+Visualizar no dispositivo:
+
+Escaneie o QR Code exibido no terminal ou navegador usando o aplicativo Expo Go (Android) ou a Câmera nativa (iOS).
+
+📂 Estrutura de Pastas
+
+macromaniacs/
+├── app/
+│   ├── _layout.tsx         # Configuração de navegação raiz do Expo Router
+│   └── index.tsx           # Tela principal do Chat e Grupo
+├── assets/                 # Imagens, fontes e ícones estáticos
+├── package.json
+├── tsconfig.json
+└── app.json
