@@ -40,37 +40,6 @@ Manipulação de Imagens: expo-image-picker
 
 Áreas Seguras: react-native-safe-area-context
 
-🚀 Como Executar o Projeto Localmente
-
-Pré-requisitos
-
-Node.js (versão LTS recomendada)
-
-Aplicativo Expo Go instalado no celular (Android ou iOS)
-
-Passo a Passo
-
-Clone o repositório:
-
-git clone https://github.com/seu-usuario/macromaniacs.git
-cd macromaniacs
-
-
-Instale as dependências:
-
-npm install
-
-
-Instale os módulos nativos do Expo:
-
-npx expo install @expo/vector-icons react-native-safe-area-context expo-image-picker
-
-
-Inicie o servidor de desenvolvimento:
-
-npx expo start
-
-
 Visualizar no dispositivo:
 
 Escaneie o QR Code exibido no terminal ou navegador usando o aplicativo Expo Go (Android) ou a Câmera nativa (iOS).
