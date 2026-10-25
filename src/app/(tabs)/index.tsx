@@ -1,6 +1,5 @@
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   Alert,
@@ -28,8 +27,9 @@ interface Message {
   avatar?: string;
 }
 
+// Foto padrão com iniciais (ex: "EU" ou "FL" com fundo roxo combinando com o tema)
 const DEFAULT_USER_AVATAR =
-  "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80";
+  "https://ui-avatars.com/api/?name=Felipe&background=6D28D9&color=fff&size=128&rounded=true";
 const DEFAULT_GROUP_AVATAR =
   "https://ui-avatars.com/api/?name=TI&background=6D28D9&color=fff&size=128&rounded=true";
 
@@ -38,6 +38,10 @@ export default function Index() {
   const [inputText, setInputText] = useState("");
   const [userAvatar, setUserAvatar] = useState<string>(DEFAULT_USER_AVATAR);
   const [groupAvatar, setGroupAvatar] = useState<string>(DEFAULT_GROUP_AVATAR);
+  const [groupDescription, setGroupDescription] = useState(
+    "Onde os fracos não tem vez.",
+  );
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -141,6 +145,7 @@ export default function Index() {
             ) : null}
             <Text style={styles.messageTime}>{item.time}</Text>
           </View>
+          {/* Clicar na sua foto ao lado da mensagem abre a galeria para alterá-la */}
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => pickImage(setUserAvatar)}
@@ -177,9 +182,8 @@ export default function Index() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <SafeAreaView style={styles.container} edges={["top"]}>
-        <Stack.Screen options={{ headerShown: false }} />
-        <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
+        <StatusBar barStyle="dark-content" />
 
         <View style={styles.topHeader}>
           <TouchableOpacity style={styles.headerLeftButton}>
@@ -221,9 +225,35 @@ export default function Index() {
                 <View style={styles.groupInfo}>
                   <Text style={styles.groupTitle}>Os cara do TI</Text>
                   <Text style={styles.groupMembers}>9 membros</Text>
-                  <Text style={styles.groupTagline} numberOfLines={2}>
-                    Onde os fracos não tem vez.
-                  </Text>
+                  {isEditingDescription ? (
+                    <TextInput
+                      style={styles.groupTaglineInput}
+                      value={groupDescription}
+                      onChangeText={setGroupDescription}
+                      onBlur={() => setIsEditingDescription(false)}
+                      onSubmitEditing={() => setIsEditingDescription(false)}
+                      placeholder="Adicione uma descrição..."
+                      placeholderTextColor="#9CA3AF"
+                      autoFocus
+                      returnKeyType="done"
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => setIsEditingDescription(true)}
+                      style={styles.descriptionRow}
+                    >
+                      <Text style={styles.groupTagline} numberOfLines={2}>
+                        {groupDescription ||
+                          "Toque para adicionar uma descrição..."}
+                      </Text>
+                      <Feather
+                        name="edit-2"
+                        size={12}
+                        color="#6B7280"
+                        style={{ marginLeft: 6 }}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
 
@@ -316,15 +346,8 @@ export default function Index() {
               <Text style={styles.navLabel}>Refeições</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.navItem}>
-              <Feather name="users" size={22} color="#6B7280" />
-              <Text style={styles.navLabel}>Grupo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.navItem}
-              onPress={() => pickImage(setUserAvatar)}
-            >
-              <View style={styles.activeProfileIndicator}>
-                <Feather name="user" size={20} color="#6D28D9" />
+              <View style={styles.activeNavIndicator}>
+                <Feather name="users" size={20} color="#6D28D9" />
               </View>
               <Text
                 style={[
@@ -332,8 +355,12 @@ export default function Index() {
                   { color: "#6D28D9", fontWeight: "600" },
                 ]}
               >
-                Perfil
+                Grupo
               </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.navItem}>
+              <Feather name="user" size={22} color="#6B7280" />
+              <Text style={styles.navLabel}>Perfil</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -397,7 +424,16 @@ const styles = StyleSheet.create({
   groupInfo: { flex: 1, marginLeft: 14 },
   groupTitle: { fontSize: 18, fontWeight: "700", color: "#111827" },
   groupMembers: { fontSize: 13, color: "#6B7280", marginTop: 1 },
-  groupTagline: { fontSize: 13, color: "#4B5563", marginTop: 4 },
+  descriptionRow: { flexDirection: "row", alignItems: "center", marginTop: 4 },
+  groupTagline: { fontSize: 13, color: "#4B5563", flexShrink: 1 },
+  groupTaglineInput: {
+    fontSize: 13,
+    color: "#111827",
+    marginTop: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: "#6D28D9",
+    paddingVertical: 2,
+  },
   tabsRow: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -506,12 +542,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFFFFF",
     paddingTop: 8,
-    paddingBottom: Platform.OS === "ios" ? 24 : 12,
+    paddingBottom: 12,
     borderTopWidth: 1,
     borderTopColor: "#F3F4F6",
   },
   navItem: { alignItems: "center", justifyContent: "center", flex: 1 },
-  activeProfileIndicator: {
+  activeNavIndicator: {
     backgroundColor: "#EDE9FE",
     borderRadius: 16,
     paddingHorizontal: 14,
